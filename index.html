@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz Maker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__brand">
+                <h2>QuizMaker</h2>
+            </div>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#" class="nav__link" data-page="home">Home</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#" class="nav__link" data-page="quiz-list">Browse Quizzes</a>
+                    </li>
+                    <li class="nav__item auth-required hidden">
+                        <a href="#" class="nav__link" data-page="create-quiz">Create Quiz</a>
+                    </li>
+                    <li class="nav__item guest-only">
+                        <a href="#" class="nav__link" data-page="login">Login</a>
+                    </li>
+                    <li class="nav__item guest-only">
+                        <a href="#" class="nav__link" data-page="register">Register</a>
+                    </li>
+                    <li class="nav__item auth-required hidden">
+                        <span class="nav__user" id="nav-user"></span>
+                        <button class="btn btn--sm" id="logout-btn">Logout</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav__toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <!-- Home Page -->
+        <section class="page active" id="home-page">
+            <div class="container">
+                <div class="hero">
+                    <h1>Welcome to QuizMaker</h1>
+                    <p>Create engaging quizzes and test your knowledge with our interactive platform</p>
+                    <div class="hero__actions">
+                        <button class="btn btn--primary btn--lg" data-page="quiz-list">Browse Quizzes</button>
+                        <button class="btn btn--outline btn--lg auth-required hidden" data-page="create-quiz">Create Quiz</button>
+                        <button class="btn btn--outline btn--lg guest-only" data-page="login">Get Started</button>
+                    </div>
+                </div>
+                
+                <div class="features">
+                    <div class="features__grid">
+                        <div class="feature-card">
+                            <h3>Create Quizzes</h3>
+                            <p>Build custom quizzes with multiple-choice questions and immediate feedback</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Take Challenges</h3>
+                            <p>Test your knowledge with quizzes created by other users</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Track Progress</h3>
+                            <p>View detailed results and track your learning progress</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Page -->
+        <section class="page" id="login-page">
+            <div class="container">
+                <div class="auth-form">
+                    <h2>Login to Your Account</h2>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label class="form-label" for="login-email">Email or Username</label>
+                            <input type="text" id="login-email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="login-password">Password</label>
+                            <input type="password" id="login-password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                    </form>
+                    <p class="auth-switch">Don't have an account? <a href="#" data-page="register">Register here</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Page -->
+        <section class="page" id="register-page">
+            <div class="container">
+                <div class="auth-form">
+                    <h2>Create Your Account</h2>
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label class="form-label" for="register-username">Username</label>
+                            <input type="text" id="register-username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="register-email">Email</label>
+                            <input type="email" id="register-email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="register-password">Password</label>
+                            <input type="password" id="register-password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="register-confirm">Confirm Password</label>
+                            <input type="password" id="register-confirm" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Register</button>
+                    </form>
+                    <p class="auth-switch">Already have an account? <a href="#" data-page="login">Login here</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz List Page -->
+        <section class="page" id="quiz-list-page">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Available Quizzes</h2>
+                    <div class="quiz-controls">
+                        <input type="text" id="quiz-search" class="form-control" placeholder="Search quizzes...">
+                        <select id="quiz-sort" class="form-control">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="title">Alphabetical</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="quiz-grid" id="quiz-grid">
+                    <!-- Quiz cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Create Quiz Page -->
+        <section class="page" id="create-quiz-page">
+            <div class="container">
+                <h2>Create New Quiz</h2>
+                <form id="create-quiz-form">
+                    <div class="quiz-meta">
+                        <div class="form-group">
+                            <label class="form-label" for="quiz-title">Quiz Title</label>
+                            <input type="text" id="quiz-title" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="quiz-description">Description</label>
+                            <textarea id="quiz-description" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="questions-section">
+                        <div class="questions-header">
+                            <h3>Questions</h3>
+                            <button type="button" class="btn btn--secondary" id="add-question-btn">Add Question</button>
+                        </div>
+                        <div id="questions-container">
+                            <!-- Questions will be dynamically added here -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" id="preview-quiz-btn">Preview Quiz</button>
+                        <button type="submit" class="btn btn--primary">Save Quiz</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Take Quiz Page -->
+        <section class="page" id="take-quiz-page">
+            <div class="container">
+                <div class="quiz-header">
+                    <h2 id="quiz-title-display"></h2>
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <span id="question-counter">Question 1 of 1</span>
+                    </div>
+                </div>
+                
+                <div class="quiz-content">
+                    <div class="question-card">
+                        <h3 id="current-question"></h3>
+                        <div class="options-container" id="options-container">
+                            <!-- Options will be dynamically inserted -->
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-navigation">
+                        <button class="btn btn--outline" id="prev-question-btn" disabled>Previous</button>
+                        <button class="btn btn--primary" id="next-question-btn" disabled>Next</button>
+                        <button class="btn btn--primary hidden" id="submit-quiz-btn">Submit Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Results Page -->
+        <section class="page" id="results-page">
+            <div class="container">
+                <div class="results-header">
+                    <h2>Quiz Results</h2>
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span id="score-percentage">0%</span>
+                        </div>
+                        <p id="score-text">You scored 0 out of 0</p>
+                    </div>
+                </div>
+                
+                <div class="results-content">
+                    <h3>Answer Review</h3>
+                    <div id="answer-review">
+                        <!-- Answer review will be dynamically inserted -->
+                    </div>
+                </div>
+                
+                <div class="results-actions">
+                    <button class="btn btn--outline" id="retake-quiz-btn">Retake Quiz</button>
+                    <button class="btn btn--primary" data-page="quiz-list">Browse More Quizzes</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay hidden" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
